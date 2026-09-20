@@ -9,18 +9,24 @@ import { HeroSection } from './components/HeroSection';
 import { SkillsSection } from './components/SkillsSection';
 import { RepoDashboard } from './components/RepoDashboard';
 import { ProjectShowcase } from './components/ProjectShowcase';
+import { InteractivePrepressStudio } from './components/InteractivePrepressStudio';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { ExperienceSection } from './components/ExperienceSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { InteractiveTerminal } from './components/InteractiveTerminal';
 import { ProfileCustomizerModal } from './components/ProfileCustomizerModal';
+import { CommandPaletteModal } from './components/CommandPaletteModal';
+import { DynamicBackgroundCanvas } from './components/DynamicBackgroundCanvas';
+import { LiveTelemetryHud } from './components/LiveTelemetryHud';
 
 import {
   TOMOE_PROFILE,
   WILBERFORCE_PROFILE,
   TECHNICAL_SKILLS,
   CODE_REPOSITORIES,
+  WILBERFORCE_CODE_REPOSITORIES,
+  TOMOE_CODE_REPOSITORIES,
   ARCHITECTURE_SHOWCASES,
   TESTIMONIALS,
   EXPERIENCE_TIMELINE,
@@ -41,10 +47,28 @@ export default function App() {
 
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isCustomizerOpen, setIsCustomizerOpen] = useState(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+
+  // Global Ctrl+K / Cmd+K trigger
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsCommandPaletteOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Dynamically select repositories based on selected profile
+  const activeRepos = profile.name.toLowerCase().includes('tomoe')
+    ? TOMOE_CODE_REPOSITORIES
+    : WILBERFORCE_CODE_REPOSITORIES;
 
   // Switch between Wilberforce & Tomoe if desired
   const handleToggleProfile = () => {
-    const next = profile.handle === 'wilberofficial' ? TOMOE_PROFILE : WILBERFORCE_PROFILE;
+    const next = profile.name.toLowerCase().includes('tomoe') ? WILBERFORCE_PROFILE : TOMOE_PROFILE;
     setProfile(next);
     try {
       localStorage.setItem('portfolio_active_profile_v2', JSON.stringify(next));
@@ -73,17 +97,20 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0d14] text-slate-100 flex flex-col selection:bg-emerald-500/30 selection:text-emerald-200">
+    <div className="min-h-screen bg-[#0a0d14] text-slate-100 flex flex-col selection:bg-emerald-500/30 selection:text-emerald-200 relative overflow-x-hidden">
+      {/* Ambient Particle Matrix Background */}
+      <DynamicBackgroundCanvas />
+
       {/* Top Sticky Navigation Bar */}
       <Navbar
         currentProfile={profile}
-        onOpenTerminal={() => setIsTerminalOpen(true)}
+        onOpenTerminal={() => setIsCommandPaletteOpen(true)}
         onOpenCustomizer={() => setIsCustomizerOpen(true)}
         onToggleProfile={handleToggleProfile}
       />
 
       {/* Main Content Sections */}
-      <main className="flex-1">
+      <main className="flex-1 relative z-10">
         {/* 1. Hero & Value Proposition */}
         <HeroSection
           profile={profile}
@@ -98,35 +125,59 @@ export default function App() {
         <SkillsSection skills={TECHNICAL_SKILLS} />
 
         {/* 3. Code Repositories Dashboard */}
-        <RepoDashboard repositories={CODE_REPOSITORIES} />
+        <RepoDashboard repositories={activeRepos} />
 
         {/* 4. Flagship Architecture Case Studies */}
         <ProjectShowcase projects={ARCHITECTURE_SHOWCASES} />
 
-        {/* 5. Verified Client & Peer Testimonials */}
+        {/* 5. Dynamic Interactive Pre-Press Studio & Separations Simulator */}
+        <InteractivePrepressStudio />
+
+        {/* 6. Verified Client & Peer Testimonials */}
         <TestimonialsSection initialTestimonials={TESTIMONIALS} />
 
-        {/* 6. Professional Track Record & Milestones */}
+        {/* 7. Professional Track Record & Milestones */}
         <ExperienceSection experience={EXPERIENCE_TIMELINE} />
 
-        {/* 7. Direct Collaboration & Contact Hub */}
+        {/* 8. Direct Collaboration & Contact Hub */}
         <ContactSection profile={profile} />
       </main>
 
       {/* Footer */}
       <Footer profile={profile} />
 
+      {/* Real-Time Telemetry HUD Overlay */}
+      <LiveTelemetryHud profile={profile} />
+
       {/* Interactive CLI Terminal Drawer */}
       <InteractiveTerminal
         isOpen={isTerminalOpen}
         onClose={() => setIsTerminalOpen(false)}
         profile={profile}
-        repositories={CODE_REPOSITORIES}
+        repositories={activeRepos}
         skills={TECHNICAL_SKILLS}
         onNavigateSection={(sectionId) => {
           setIsTerminalOpen(false);
           scrollToSection(sectionId);
         }}
+      />
+
+      {/* Global Command Palette Modal (Ctrl+K) */}
+      <CommandPaletteModal
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        profile={profile}
+        repositories={activeRepos}
+        showcases={ARCHITECTURE_SHOWCASES}
+        onNavigateSection={(sectionId) => {
+          setIsCommandPaletteOpen(false);
+          scrollToSection(sectionId);
+        }}
+        onOpenTerminal={() => {
+          setIsCommandPaletteOpen(false);
+          setIsTerminalOpen(true);
+        }}
+        onToggleProfile={handleToggleProfile}
       />
 
       {/* Profile Persona & Customization Drawer */}

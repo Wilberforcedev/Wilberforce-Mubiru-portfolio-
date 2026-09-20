@@ -13,6 +13,8 @@ import {
   Phone,
   MessageCircle,
   Instagram,
+  Linkedin,
+  Github,
   FileText,
 } from 'lucide-react';
 import { UserProfile } from '../types';
@@ -219,53 +221,86 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ profile }) => {
               </button>
             </div>
 
-            {/* Social & Channel Links */}
+            {/* Social & Direct Communication Channels */}
             <div className="grid grid-cols-2 gap-3">
-              {profile.instagramUrl ? (
-                <a
-                  href={profile.instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3.5 rounded-xl bg-slate-900/50 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all flex items-center justify-between group"
-                >
-                  <div className="text-xs font-mono">
-                    <div className="text-slate-400 text-[10px]">INSTAGRAM</div>
-                    <div className="text-slate-200 font-semibold group-hover:text-pink-400">
-                      @{profile.instagramHandle || 'willinho23'}
-                    </div>
-                  </div>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-slate-300" />
-                </a>
-              ) : (
-                <a
-                  href={profile.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3.5 rounded-xl bg-slate-900/50 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all flex items-center justify-between group"
-                >
-                  <div className="text-xs font-mono">
-                    <div className="text-slate-400 text-[10px]">GITHUB</div>
-                    <div className="text-slate-200 font-semibold group-hover:text-emerald-400">
-                      @{profile.handle}
-                    </div>
-                  </div>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-slate-300" />
-                </a>
-              )}
-
+              {/* LinkedIn Profile */}
               <a
-                href={profile.githubUrl}
+                id="contact-linkedin-card"
+                href={profile.linkedinUrl || 'https://www.linkedin.com/in/wilberforce-mubiru'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3.5 rounded-xl bg-slate-900/50 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all flex items-center justify-between group"
+                className="p-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-blue-500/50 transition-all flex items-center justify-between group shadow-sm"
               >
-                <div className="text-xs font-mono">
-                  <div className="text-slate-400 text-[10px]">CODE REPOS</div>
-                  <div className="text-slate-200 font-semibold group-hover:text-emerald-400">
+                <div className="text-xs font-mono min-w-0">
+                  <div className="text-slate-400 text-[10px] flex items-center gap-1">
+                    <Linkedin className="w-3 h-3 text-blue-400" />
+                    <span>LINKEDIN</span>
+                  </div>
+                  <div className="text-slate-200 font-semibold group-hover:text-blue-400 truncate mt-0.5">
+                    {profile.linkedinHandle || 'wilberforce-mubiru'}
+                  </div>
+                </div>
+                <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-blue-400 shrink-0" />
+              </a>
+
+              {/* Instagram Profile */}
+              <a
+                id="contact-instagram-card"
+                href={profile.instagramUrl || 'https://instagram.com/willinho23'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-pink-500/50 transition-all flex items-center justify-between group shadow-sm"
+              >
+                <div className="text-xs font-mono min-w-0">
+                  <div className="text-slate-400 text-[10px] flex items-center gap-1">
+                    <Instagram className="w-3 h-3 text-pink-400" />
+                    <span>INSTAGRAM</span>
+                  </div>
+                  <div className="text-slate-200 font-semibold group-hover:text-pink-400 truncate mt-0.5">
+                    @{profile.instagramHandle || 'willinho23'}
+                  </div>
+                </div>
+                <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-pink-400 shrink-0" />
+              </a>
+
+              {/* GitHub Repos */}
+              <a
+                id="contact-github-card"
+                href={profile.githubUrl || 'https://github.com/Wilberforcedev'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-purple-500/50 transition-all flex items-center justify-between group shadow-sm"
+              >
+                <div className="text-xs font-mono min-w-0">
+                  <div className="text-slate-400 text-[10px] flex items-center gap-1">
+                    <Github className="w-3 h-3 text-purple-400" />
+                    <span>GITHUB</span>
+                  </div>
+                  <div className="text-slate-200 font-semibold group-hover:text-purple-300 truncate mt-0.5">
                     @{profile.handle}
                   </div>
                 </div>
-                <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-slate-300" />
+                <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-purple-400 shrink-0" />
+              </a>
+
+              {/* WhatsApp Direct Line */}
+              <a
+                id="contact-whatsapp-card"
+                href={profile.whatsAppUrl || 'https://wa.me/256755943973'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3.5 rounded-xl bg-emerald-950/30 hover:bg-emerald-950/60 border border-emerald-800/50 hover:border-emerald-500/60 transition-all flex items-center justify-between group shadow-sm"
+              >
+                <div className="text-xs font-mono min-w-0">
+                  <div className="text-emerald-400 text-[10px] flex items-center gap-1">
+                    <MessageCircle className="w-3 h-3 text-emerald-400" />
+                    <span>WHATSAPP</span>
+                  </div>
+                  <div className="text-emerald-200 font-semibold group-hover:text-emerald-100 truncate mt-0.5">
+                    {profile.phone || '+256 755943973'}
+                  </div>
+                </div>
+                <ExternalLink className="w-3.5 h-3.5 text-emerald-500 group-hover:text-emerald-300 shrink-0" />
               </a>
             </div>
           </div>

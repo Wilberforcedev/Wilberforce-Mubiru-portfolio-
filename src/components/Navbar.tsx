@@ -13,6 +13,10 @@ import {
   ExternalLink,
   ChevronDown,
   UserCheck,
+  Linkedin,
+  Instagram,
+  Github,
+  Layers,
 } from 'lucide-react';
 import { UserProfile } from '../types';
 
@@ -37,7 +41,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = ['skills', 'repositories', 'architecture', 'testimonials', 'experience', 'contact'];
+      const sections = ['skills', 'repositories', 'architecture', 'prepress-studio', 'testimonials', 'experience', 'contact'];
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
         if (el) {
@@ -61,6 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'skills', label: 'Skills', icon: Cpu },
     { id: 'repositories', label: 'Repositories', icon: FolderGit2 },
     { id: 'architecture', label: 'Architecture', icon: Code2 },
+    { id: 'prepress-studio', label: 'Studio', icon: Layers },
     { id: 'testimonials', label: 'Testimonials', icon: MessageSquareQuote },
     { id: 'experience', label: 'Experience', icon: Briefcase },
     { id: 'contact', label: 'Contact', icon: Mail },
@@ -150,7 +155,49 @@ export const Navbar: React.FC<NavbarProps> = ({
         </nav>
 
         {/* Actions & Terminal Button */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
+          {/* LinkedIn Profile */}
+          {currentProfile.linkedinUrl && (
+            <a
+              id="nav-linkedin-link"
+              href={currentProfile.linkedinUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden lg:flex items-center justify-center w-8 h-8 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-blue-400 border border-slate-800 hover:border-blue-500/40 transition-all"
+              title="LinkedIn: Wilberforce Mubiru"
+            >
+              <Linkedin className="w-4 h-4" />
+            </a>
+          )}
+
+          {/* Instagram Profile */}
+          {currentProfile.instagramUrl && (
+            <a
+              id="nav-instagram-link"
+              href={currentProfile.instagramUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden lg:flex items-center justify-center w-8 h-8 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-pink-400 border border-slate-800 hover:border-pink-500/40 transition-all"
+              title="Instagram: @willinho23"
+            >
+              <Instagram className="w-4 h-4" />
+            </a>
+          )}
+
+          {/* GitHub Profile */}
+          {currentProfile.githubUrl && (
+            <a
+              id="nav-github-link"
+              href={currentProfile.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden sm:flex items-center justify-center w-8 h-8 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 transition-all"
+              title={`GitHub: @${currentProfile.handle}`}
+            >
+              <Github className="w-4 h-4" />
+            </a>
+          )}
+
           {/* Quick WhatsApp Action if available */}
           {currentProfile.whatsAppUrl && (
             <a
@@ -266,6 +313,53 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
               <span>Customize</span>
             </button>
+          </div>
+
+          {/* Mobile Social Links Row */}
+          <div className="pt-2 border-t border-slate-800 flex items-center justify-around text-xs font-mono text-slate-400">
+            {currentProfile.linkedinUrl && (
+              <a
+                href={currentProfile.linkedinUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1 text-blue-400 hover:text-blue-300"
+              >
+                <Linkedin className="w-3.5 h-3.5" />
+                <span>LinkedIn</span>
+              </a>
+            )}
+            {currentProfile.instagramUrl && (
+              <a
+                href={currentProfile.instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1 text-pink-400 hover:text-pink-300"
+              >
+                <Instagram className="w-3.5 h-3.5" />
+                <span>Instagram</span>
+              </a>
+            )}
+            {currentProfile.githubUrl && (
+              <a
+                href={currentProfile.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1 text-purple-400 hover:text-purple-300"
+              >
+                <Github className="w-3.5 h-3.5" />
+                <span>GitHub</span>
+              </a>
+            )}
+            {currentProfile.whatsAppUrl && (
+              <a
+                href={currentProfile.whatsAppUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1 text-emerald-400 hover:text-emerald-300"
+              >
+                <span>WhatsApp</span>
+              </a>
+            )}
           </div>
         </div>
       )}

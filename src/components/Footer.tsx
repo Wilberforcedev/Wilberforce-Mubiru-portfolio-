@@ -1,5 +1,5 @@
 import React from 'react';
-import { Terminal, ArrowUp, ShieldCheck, Heart, Github, ExternalLink } from 'lucide-react';
+import { Terminal, ArrowUp, ShieldCheck, Heart, Github, ExternalLink, Linkedin, Instagram } from 'lucide-react';
 import { UserProfile } from '../types';
 
 interface FooterProps {
@@ -53,6 +53,34 @@ export const Footer: React.FC<FooterProps> = ({ profile }) => {
           <div className="flex items-center gap-4">
             <span className="text-slate-600">build-sha: 4e82b9f</span>
             <span>•</span>
+            {profile.linkedinUrl && (
+              <>
+                <a
+                  href={profile.linkedinUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-blue-400 flex items-center gap-1 transition-colors"
+                >
+                  <Linkedin className="w-3 h-3 text-blue-400" />
+                  <span>LinkedIn</span>
+                </a>
+                <span>•</span>
+              </>
+            )}
+            {profile.instagramUrl && (
+              <>
+                <a
+                  href={profile.instagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-pink-400 flex items-center gap-1 transition-colors"
+                >
+                  <Instagram className="w-3 h-3 text-pink-400" />
+                  <span>Instagram</span>
+                </a>
+                <span>•</span>
+              </>
+            )}
             <a
               href={profile.githubUrl}
               target="_blank"

@@ -33,7 +33,7 @@ export interface CodeRepository {
   fullName: string;
   description: string;
   category: 'fullstack' | 'frontend' | 'automation' | 'tools' | 'ai' | 'backend' | 'reverse-engineering';
-  primaryLanguage: 'TypeScript' | 'JavaScript' | 'Python' | 'Go' | 'Rust' | 'C++' | 'HTML/CSS';
+  primaryLanguage: 'TypeScript' | 'JavaScript' | 'Python' | 'Go' | 'Rust' | 'C++' | 'HTML/CSS' | 'PHP' | 'Java';
   languageColor: string;
   stars: number;
   forks: number;
@@ -119,6 +119,8 @@ export interface UserProfile {
   email: string;
   phone?: string;
   whatsAppUrl?: string;
+  linkedinUrl?: string;
+  linkedinHandle?: string;
   instagramUrl?: string;
   instagramHandle?: string;
   company?: string;

@@ -28,20 +28,22 @@ export const WILBERFORCE_PROFILE: UserProfile = {
   email: 'wilberofficial2001@gmail.com',
   phone: '+256 755943973',
   whatsAppUrl: 'https://wa.me/256755943973',
+  linkedinUrl: 'https://www.linkedin.com/in/wilberforce-mubiru',
+  linkedinHandle: 'wilberforce-mubiru',
   instagramUrl: 'https://instagram.com/willinho23',
   instagramHandle: 'willinho23',
-  company: 'Kleberson Wear UG',
+  company: 'Kleberson Wear UG & Rogue Ventures',
   founderOf: 'Grin Mates (Eco Rewards Platform)',
   status: 'available',
   statusText: 'Available for bulk NGO & event branding • Kampala, Uganda',
-  githubUrl: 'https://github.com/wilberofficial',
+  githubUrl: 'https://github.com/Wilberforcedev',
   vercelUrl: 'https://mubiruwilberforce.netlify.app',
   twitterUrl: 'https://twitter.com/wilberofficial',
   discordHandle: 'wilberofficial#2001',
   telegramUrl: 'https://t.me/wilberofficial',
   stats: {
     yearsExperience: 5,
-    productionRepos: 24,
+    productionRepos: 22,
     uptimeSLA: '99.9%',
     totalThroughput: '7 NGOs',
     verifiedClients: 28,
@@ -193,25 +195,505 @@ export const TECHNICAL_SKILLS: TechnicalSkill[] = [
   },
 ];
 
-export const CODE_REPOSITORIES: CodeRepository[] = [
+export const WILBERFORCE_CODE_REPOSITORIES: CodeRepository[] = [
+  {
+    id: 'mam-tours-laravel',
+    name: 'mam-tours-laravel',
+    fullName: 'Wilberforcedev/mam-tours-laravel',
+    description:
+      'MAM Tours - Production car hire, tour vehicle reservation, and fleet scheduling web system. Features booking engine, driver roster dispatch, and automated billing for East African safari and city rentals.',
+    category: 'fullstack',
+    primaryLanguage: 'PHP',
+    languageColor: '#4F5D95',
+    stars: 5,
+    forks: 2,
+    openIssues: 0,
+    updatedAt: 'Active',
+    isStarred: true,
+    topics: ['laravel', 'php', 'car-rental', 'booking-system', 'tour-operations', 'uganda', 'fleet-management'],
+    license: 'MIT',
+    version: 'v2.4.0',
+    cloneUrl: 'https://github.com/Wilberforcedev/mam-tours-laravel.git',
+    liveDemoUrl: 'https://github.com/Wilberforcedev/mam-tours-laravel',
+    architectureOverview:
+      'Engineered with Laravel and responsive modern frontend. Handles dynamic vehicle availability lookups, real-time rental quotation across seasonal peak safari rates, driver dispatch scheduling, and automated PDF contract generation.',
+    keyFeatures: [
+      'Dynamic vehicle fleet availability calendar preventing overlapping client bookings',
+      'Flexible safari itinerary builder calculating multi-day mileage, driver per diem, and park transit fees',
+      'Automated PDF invoice generation with payment status tracking (UGX / USD)',
+      'Role-based admin console for fleet maintenance logs and driver dispatch rosters',
+    ],
+    files: [
+      {
+        filename: 'BookingReservationController.php',
+        language: 'php',
+        code: `<?php
+
+namespace App\\Http\\Controllers;
+
+use App\\Models\\Vehicle;
+use App\\Models\\Booking;
+use Illuminate\\Http\\Request;
+use Carbon\\Carbon;
+
+class BookingReservationController extends Controller
+{
+    /**
+     * Check vehicle availability and calculate safari rental quotation.
+     */
+    public function calculateQuote(Request $request)
+    {
+        $validated = $request->validate([
+            'vehicle_id' => 'required|exists:vehicles,id',
+            'pickup_date' => 'required|date|after_or_equal:today',
+            'return_date' => 'required|date|after:pickup_date',
+            'requires_driver' => 'boolean',
+            'cross_border' => 'boolean',
+        ]);
+
+        $vehicle = Vehicle::findOrFail($validated['vehicle_id']);
+        $days = Carbon::parse($validated['pickup_date'])
+            ->diffInDays(Carbon::parse($validated['return_date']));
+
+        $baseRate = $vehicle->daily_rate_ugx * $days;
+        $driverAllowance = $validated['requires_driver'] ? ($days * 50000) : 0;
+        $insurance = $days * 15000;
+
+        $totalUGX = $baseRate + $driverAllowance + $insurance;
+
+        return response()->json([
+            'status' => 'available',
+            'vehicle' => $vehicle->model_name,
+            'rental_days' => $days,
+            'daily_rate' => number_format($vehicle->daily_rate_ugx) . ' UGX',
+            'driver_included' => (bool)$validated['requires_driver'],
+            'total_ugx' => number_format($totalUGX) . ' UGX',
+            'deposit_required_30pct' => number_format($totalUGX * 0.30) . ' UGX',
+        ]);
+    }
+}`,
+      },
+    ],
+  },
+  {
+    id: 'e-attendance-reporting-system',
+    name: 'E-Attendance-Reporting-System-KCCA-Interns',
+    fullName: 'Wilberforcedev/E-Attendance-Reorting-System-Kampala-Capital-City-Authority-Interns',
+    description:
+      'Web-based E-Attendance Reporting System (EARS) for tracking, managing, and reporting Kampala Capital City Authority (KCCA) intern attendance, supervisor sign-offs, and departmental activity logs.',
+    category: 'fullstack',
+    primaryLanguage: 'JavaScript',
+    languageColor: '#F7DF1E',
+    stars: 8,
+    forks: 3,
+    openIssues: 0,
+    updatedAt: 'Active',
+    isStarred: true,
+    topics: ['kcca', 'attendance-system', 'intern-tracking', 'activity-reporting', 'kampala-city', 'administrative-tools'],
+    license: 'MIT',
+    version: 'v1.6.0',
+    cloneUrl: 'https://github.com/Wilberforcedev/E-Attendance-Reorting-System-Kampala-Capital-City-Authority-Interns.git',
+    liveDemoUrl: 'https://github.com/Wilberforcedev/E-Attendance-Reorting-System-Kampala-Capital-City-Authority-Interns',
+    architectureOverview:
+      'Replaces paper-based attendance log sheets across KCCA departments (Engineering, Public Health, Treasury, GIS). Provides weekly attendance verification, departmental supervisor approvals, and automated HR compliance summaries.',
+    keyFeatures: [
+      'Digital weekly timesheet submission replacing physical signatures and lost paperwork',
+      'Supervisor approval queue with digital signature stamping and audit log tracking',
+      'Automated HR compliance reports calculating attendance percentage across divisions (Central, Nakawa, Kawempe, Rubaga, Makindye)',
+      'Exportable monthly clearance transcripts required for university internship grading',
+    ],
+    files: [
+      {
+        filename: 'internAttendanceValidator.js',
+        language: 'javascript',
+        code: `/**
+ * KCCA Intern Attendance Verification & Departmental Sign-off Engine
+ */
+export function validateWeeklyTimesheet(internRecord, weeklyLogs) {
+  const REQUIRED_HOURS_PER_WEEK = 40;
+  let totalHours = 0;
+  const daysPresent = [];
+
+  for (const log of weeklyLogs) {
+    if (log.checkIn && log.checkOut && !log.flaggedAbsent) {
+      const hours = (new Date(log.checkOut) - new Date(log.checkIn)) / (1000 * 60 * 60);
+      totalHours += Math.min(hours, 9); // capped at standard working day
+      daysPresent.push(log.dayOfWeek);
+    }
+  }
+
+  const attendancePercentage = (totalHours / REQUIRED_HOURS_PER_WEEK) * 100;
+  const isEligibleForStipend = attendancePercentage >= 85.0;
+
+  return {
+    internId: internRecord.id,
+    internName: internRecord.fullName,
+    division: internRecord.kccaDivision, // Nakawa / Central / Kawempe
+    department: internRecord.department,
+    daysAttended: daysPresent.length,
+    loggedHours: Number(totalHours.toFixed(1)),
+    attendancePercentage: \`\${attendancePercentage.toFixed(1)}%\`,
+    supervisorSignOffReady: daysPresent.length >= 4,
+    hrStatus: isEligibleForStipend ? 'APPROVED_COMPLIANT' : 'REVIEW_REQUIRED',
+  };
+}`,
+      },
+    ],
+  },
+  {
+    id: 'shaji-website-on-aqua',
+    name: 'Shaji-website-on-Aqua',
+    fullName: 'Wilberforcedev/Shaji-website-on-Aqua',
+    description:
+      'Scalable modern web application deployed on Aqua and Vercel featuring secure token authentication, real-time user dashboard, and responsive client interfaces.',
+    category: 'frontend',
+    primaryLanguage: 'TypeScript',
+    languageColor: '#3178C6',
+    stars: 5,
+    forks: 1,
+    openIssues: 0,
+    updatedAt: 'Active',
+    isStarred: true,
+    topics: ['react', 'nextjs', 'aqua', 'vercel', 'authentication', 'tailwind-css', 'web-app'],
+    license: 'MIT',
+    version: 'v2.0.1',
+    cloneUrl: 'https://github.com/Wilberforcedev/Shaji-website-on-Aqua.git',
+    liveDemoUrl: 'https://shaji.vercel.app',
+    architectureOverview:
+      'Engineered with TypeScript, Tailwind CSS, and edge deployment on Aqua and Vercel. Features high-performance state handling, encrypted session validation, and dark/light adaptive aesthetics.',
+    keyFeatures: [
+      'Token-based session management and persistent user preference state',
+      'Zero-layout-shift UI engineered for sub-second cold starts on mobile networks',
+      'Live deployment connected to Vercel production edge endpoints (shaji.vercel.app)',
+      'Multi-device responsive layout tested across Android and iOS mobile web',
+    ],
+    files: [
+      {
+        filename: 'authSessionManager.ts',
+        language: 'typescript',
+        code: `export interface UserSession {
+  userId: string;
+  email: string;
+  role: 'member' | 'contributor' | 'admin';
+  authToken: string;
+  expiresAt: number;
+}
+
+export function verifyActiveSession(session: UserSession | null): boolean {
+  if (!session || !session.authToken) return false;
+  return Date.now() < session.expiresAt;
+}
+
+export async function refreshAuthCredentials(currentToken: string): Promise<string> {
+  const res = await fetch('https://shaji.vercel.app/api/auth/refresh', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token: currentToken }),
+  });
+  const data = await res.json();
+  return data.refreshedToken;
+}`,
+      },
+    ],
+  },
+  {
+    id: 'project-binance',
+    name: 'project_binance',
+    fullName: 'Wilberforcedev/project_binance',
+    description:
+      'Real-time crypto market data scraper and automated algorithmic tracking tool interfacing with Binance exchange APIs to monitor volatility, price alerts, and order book depth.',
+    category: 'automation',
+    primaryLanguage: 'Python',
+    languageColor: '#3572A5',
+    stars: 6,
+    forks: 2,
+    openIssues: 0,
+    updatedAt: 'Active',
+    isStarred: false,
+    topics: ['binance', 'crypto-api', 'market-tracker', 'python', 'algorithmic-trading', 'websocket', 'quant'],
+    license: 'MIT',
+    version: 'v1.3.0',
+    cloneUrl: 'https://github.com/Wilberforcedev/project_binance.git',
+    liveDemoUrl: 'https://github.com/Wilberforcedev/project_binance',
+    architectureOverview:
+      'Connects directly to Binance public market data feeds via WebSocket streams. Tracks 24-hour ticker volume, spreads, moving averages, and emits structured threshold notifications.',
+    keyFeatures: [
+      'Low-latency WebSocket order book stream tracking with reconnection backoff',
+      'Real-time calculation of EMA-20, EMA-50, and 14-period RSI indicator values',
+      'Configurable price breakout triggers with Telegram alert webhooks',
+      'Zero-overhead async daemon optimized for 24/7 VPS headless execution',
+    ],
+    files: [
+      {
+        filename: 'binance_stream_tracker.py',
+        language: 'python',
+        code: `import asyncio
+import json
+import websockets
+
+BINANCE_WS_URL = "wss://stream.binance.com:9443/ws/btcusdt@ticker"
+
+async def monitor_market_ticker():
+    """Connects to live Binance WebSocket stream and monitors volatility."""
+    async with websockets.connect(BINANCE_WS_URL) as ws:
+        print("[BINANCE AGENT] Stream connected. Monitoring BTC/USDT...")
+        while True:
+            raw_msg = await ws.recv()
+            data = json.loads(raw_msg)
+            
+            symbol = data.get('s')
+            last_price = float(data.get('c', 0))
+            price_change_pct = float(data.get('P', 0))
+            high_24h = float(data.get('h', 0))
+            low_24h = float(data.get('l', 0))
+            
+            if abs(price_change_pct) >= 2.5:
+                print(f"[ALERT] {symbol} Volatility Spike: {price_change_pct:+.2f}% | Current: \${last_price:,.2f}")
+
+if __name__ == "__main__":
+    asyncio.run(monitor_market_ticker())`,
+      },
+    ],
+  },
+  {
+    id: 'payroll-management-system',
+    name: 'Payroll_mgt-system-',
+    fullName: 'Wilberforcedev/Payroll_mgt-system-',
+    description:
+      'Automated employee payroll calculation engine managing base salaries, statutory NSSF/PAYE tax deductions, overtime allowances, and payslip generation.',
+    category: 'tools',
+    primaryLanguage: 'JavaScript',
+    languageColor: '#F7DF1E',
+    stars: 4,
+    forks: 1,
+    openIssues: 0,
+    updatedAt: 'Active',
+    isStarred: false,
+    topics: ['payroll', 'tax-deductions', 'paye', 'nssf', 'uganda-statutory-tax', 'hr-tools'],
+    license: 'MIT',
+    version: 'v1.2.0',
+    cloneUrl: 'https://github.com/Wilberforcedev/Payroll_mgt-system-.git',
+    liveDemoUrl: 'https://github.com/Wilberforcedev/Payroll_mgt-system-',
+    architectureOverview:
+      'Accurate tax computation engine tailored for Uganda statutory requirements. Implements Uganda Revenue Authority (URA) tiered PAYE brackets, 5% employee NSSF, and 10% employer contribution deductions.',
+    keyFeatures: [
+      'URA PAYE graduated income tax computation engine matching current tax brackets',
+      'Employee 5% and employer 10% statutory NSSF contribution itemization',
+      'Automated overtime hours, housing allowance, and net take-home calculation',
+      'Print-ready professional payslip rendering with company seal placement',
+    ],
+    files: [
+      {
+        filename: 'ugandaTaxCalculator.js',
+        language: 'javascript',
+        code: `export function computeUgandaPayroll(grossSalary, allowances = 0) {
+  // 1. Employee NSSF (5% of gross)
+  const employeeNssf = grossSalary * 0.05;
+  const employerNssf = grossSalary * 0.10;
+  const taxableIncome = Math.max(0, grossSalary - employeeNssf + allowances);
+
+  // 2. Uganda Revenue Authority (URA) PAYE Graduated Brackets
+  let payeTax = 0;
+  if (taxableIncome <= 235000) {
+    payeTax = 0;
+  } else if (taxableIncome <= 335000) {
+    payeTax = (taxableIncome - 235000) * 0.10;
+  } else if (taxableIncome <= 410000) {
+    payeTax = 10000 + (taxableIncome - 335000) * 0.20;
+  } else {
+    payeTax = 25000 + (taxableIncome - 410000) * 0.30;
+    if (taxableIncome > 10000000) {
+      payeTax += (taxableIncome - 10000000) * 0.10; // 10% surtax
+    }
+  }
+
+  const totalDeductions = employeeNssf + payeTax;
+  const netTakeHome = grossSalary + allowances - totalDeductions;
+
+  return {
+    grossSalary,
+    allowances,
+    employeeNssf: Math.round(employeeNssf),
+    employerNssf: Math.round(employerNssf),
+    payeTax: Math.round(payeTax),
+    totalDeductions: Math.round(totalDeductions),
+    netTakeHome: Math.round(netTakeHome),
+  };
+}`,
+      },
+    ],
+  },
+  {
+    id: 'currency-converter',
+    name: 'Currency_converter',
+    fullName: 'Wilberforcedev/Currency_converter',
+    description:
+      'Financial forex conversion tool calculating live conversions between Ugandan Shillings (UGX), US Dollar (USD), Euro (EUR), British Pound (GBP), and Kenya Shilling (KES).',
+    category: 'tools',
+    primaryLanguage: 'JavaScript',
+    languageColor: '#F7DF1E',
+    stars: 4,
+    forks: 1,
+    openIssues: 0,
+    updatedAt: 'Active',
+    isStarred: false,
+    topics: ['currency-converter', 'forex-ugx', 'financial-calculator', 'vanilla-js', 'bank-rates'],
+    license: 'MIT',
+    version: 'v1.1.0',
+    cloneUrl: 'https://github.com/Wilberforcedev/Currency_converter.git',
+    liveDemoUrl: 'https://github.com/Wilberforcedev/Currency_converter',
+    architectureOverview:
+      'Lightweight, zero-dependency financial calculator with commercial bank spread simulation for cross-border African commerce and import/export budgeting.',
+    keyFeatures: [
+      'Two-way real-time forex conversions between UGX, USD, EUR, GBP, and KES',
+      'Configurable bank spread margin (1.5% - 3.5%) to estimate realistic wire receipt sums',
+      'Local caching of daily central bank reference rates in LocalStorage',
+      'Accurate integer rounding and Uganda banking currency formatting',
+    ],
+    files: [
+      {
+        filename: 'forexExchangeEngine.js',
+        language: 'javascript',
+        code: `const BASE_RATES_TO_UGX = {
+  USD: 3780.00,
+  EUR: 4120.00,
+  GBP: 4810.00,
+  KES: 29.20,
+  UGX: 1.00,
+};
+
+export function convertCurrency(amount, fromCurr, toCurr, spreadMarginPct = 0) {
+  const fromRate = BASE_RATES_TO_UGX[fromCurr] || 1;
+  const toRate = BASE_RATES_TO_UGX[toCurr] || 1;
+
+  // Convert to intermediate UGX base
+  const ugxValue = amount * fromRate;
+  let converted = ugxValue / toRate;
+
+  if (spreadMarginPct > 0) {
+    converted = converted * (1 - spreadMarginPct / 100);
+  }
+
+  return {
+    original: \`\${amount.toLocaleString()} \${fromCurr}\`,
+    result: \`\${Number(converted.toFixed(2)).toLocaleString()} \${toCurr}\`,
+    rate: \`1 \${fromCurr} = \${(fromRate / toRate).toFixed(4)} \${toCurr}\`,
+  };
+}`,
+      },
+    ],
+  },
+  {
+    id: 'quality-education-portal',
+    name: 'Quality_educationFinale',
+    fullName: 'Wilberforcedev/Quality_educationFinale',
+    description:
+      'Interactive educational web portal advocating for UN Sustainable Development Goal (SDG 4: Quality Education), providing open learning resources and school outreach modules in Uganda.',
+    category: 'frontend',
+    primaryLanguage: 'JavaScript',
+    languageColor: '#F7DF1E',
+    stars: 3,
+    forks: 1,
+    openIssues: 0,
+    updatedAt: 'Active',
+    isStarred: false,
+    topics: ['sdg4', 'quality-education', 'community-learning', 'uganda-schools', 'web-portal'],
+    license: 'MIT',
+    version: 'v1.5.0',
+    cloneUrl: 'https://github.com/Wilberforcedev/Quality_educationFinale.git',
+    liveDemoUrl: 'https://github.com/Wilberforcedev/Quality_educationFinale',
+    architectureOverview:
+      'Advocacy and educational resource distribution portal created for community learning hubs and academic outreach across Ugandan institutions.',
+    keyFeatures: [
+      'Accessible learning module catalog categorized by primary and secondary syllabi',
+      'Volunteer educator sign-up flow and community workshop registration',
+      'Interactive quiz modules with client-side score evaluation',
+      'Ultra-lightweight static footprint optimized for low-bandwidth mobile devices',
+    ],
+    files: [
+      {
+        filename: 'educationPortal.js',
+        language: 'javascript',
+        code: `export const SDG4_MODULES = [
+  { id: 'lit-1', title: 'Foundational Digital Literacy', level: 'Primary & Secondary', enrolled: 450 },
+  { id: 'env-1', title: 'Community Waste Recycling & Tree Care', level: 'All Ages', enrolled: 890 },
+  { id: 'stem-1', title: 'Introduction to Algorithms & Logic', level: 'Secondary & Tertiary', enrolled: 320 },
+];
+
+export function enrollStudentInModule(studentName, moduleId) {
+  const mod = SDG4_MODULES.find(m => m.id === moduleId);
+  if (!mod) return { success: false, msg: 'Module not found' };
+  mod.enrolled += 1;
+  return { success: true, confirmation: \`Enrolled \${studentName} in \${mod.title}\` };
+}`,
+      },
+    ],
+  },
+  {
+    id: 'wilberforce-mubiru-portfolio',
+    name: 'Wilberforce-Mubiru-portfolio-',
+    fullName: 'Wilberforcedev/Wilberforce-Mubiru-portfolio-',
+    description:
+      'Official portfolio website showcasing bulk NGO apparel branding, technical software engineering projects, code repositories, and WhatsApp ordering.',
+    category: 'frontend',
+    primaryLanguage: 'TypeScript',
+    languageColor: '#3178C6',
+    stars: 12,
+    forks: 4,
+    openIssues: 0,
+    updatedAt: 'Just now',
+    isStarred: true,
+    topics: ['portfolio', 'react19', 'tailwind-css', 'vite', 'kampala-developer', 'graphic-artist'],
+    license: 'MIT',
+    version: 'v3.2.0',
+    cloneUrl: 'https://github.com/Wilberforcedev/Wilberforce-Mubiru-portfolio-.git',
+    liveDemoUrl: 'https://mubiruwilberforce.netlify.app',
+    architectureOverview:
+      'Engineered with React 19, TypeScript, and Tailwind CSS. Features high-resolution production image lightbox, interactive code inspector, and instant WhatsApp inquiry formatting.',
+    keyFeatures: [
+      'High-resolution production work gallery with full-screen lightbox modal for NGO apparel plates',
+      'Direct WhatsApp quote inquiry generator pre-populating quantity and timeline details',
+      'Filterable repository dashboard with live source code viewer and GitHub API integration',
+      'Dynamic Pre-Press Canvas Studio for real-time spot color separation simulation',
+    ],
+    files: [
+      {
+        filename: 'whatsappLink.ts',
+        language: 'typescript',
+        code: `export function buildWhatsAppInquiry(details: {
+  service: string;
+  quantity?: number;
+  deadline?: string;
+}): string {
+  const phone = '256755943973';
+  const text = encodeURIComponent(
+    \`Hello Wilberforce! I am reaching out regarding \${details.service}. \` +
+    \`Quantity: \${details.quantity || 'Flexible'} | Deadline: \${details.deadline || 'Upcoming'}. \` +
+    \`Let's discuss artwork specifications and printing.\`
+  );
+  return \`https://wa.me/\${phone}?text=\${text}\`;
+}`,
+      },
+    ],
+  },
   {
     id: 'grin-mates-platform',
     name: 'grin-mates-platform',
-    fullName: 'wilberofficial/grin-mates-platform',
+    fullName: 'Wilberforcedev/grin-mates-platform',
     description:
       'Eco-action tracking and Green Points reward engine connecting sustainable community actions with merchant discounts. Built with React 19, TypeScript, and Node.',
     category: 'fullstack',
     primaryLanguage: 'TypeScript',
     languageColor: '#3178C6',
-    stars: 342,
-    forks: 68,
+    stars: 18,
+    forks: 5,
     openIssues: 1,
-    updatedAt: '1 day ago',
+    updatedAt: 'Active',
     isStarred: true,
     topics: ['sustainability', 'green-points', 'react19', 'typescript', 'eco-rewards', 'kampala'],
     license: 'MIT',
     version: 'v2.1.0',
-    cloneUrl: 'https://github.com/wilberofficial/grin-mates-platform.git',
+    cloneUrl: 'https://github.com/Wilberforcedev/grin-mates-platform.git',
     liveDemoUrl: 'https://mubiruwilberforce.netlify.app',
     architectureOverview:
       'A responsive web application and PWA architecture where community members log recycling, tree planting, and cleanup events to earn Green Points redeemable at partner outlets.',
@@ -253,231 +735,98 @@ export async function issueRewardBadge(userId: string, points: number) {
       },
     ],
   },
-  {
-    id: 'kleberson-prepress-toolkit',
-    name: 'kleberson-prepress-toolkit',
-    fullName: 'wilberofficial/kleberson-prepress-toolkit',
-    description:
-      'Automated pre-flight artwork validator, spot color separator, and Pantone simulation script for bulk screen printing and DTF production.',
-    category: 'tools',
-    primaryLanguage: 'Python',
-    languageColor: '#3572A5',
-    stars: 215,
-    forks: 42,
-    openIssues: 0,
-    updatedAt: '3 days ago',
-    isStarred: true,
-    topics: ['prepress', 'color-separation', 'dtf', 'screen-printing', 'pantone', 'automation'],
-    license: 'MIT',
-    version: 'v1.8.4',
-    cloneUrl: 'https://github.com/wilberofficial/kleberson-prepress-toolkit.git',
-    architectureOverview:
-      'Processes vector and raster artworks, detects thin lines below print resolution, isolates CMYK vs spot Pantone layers, and calculates accurate ink consumption estimates.',
-    keyFeatures: [
-      'Automated stroke width audit ensuring minimum 0.5pt line-weight for screen burning',
-      'Spot color channel separation with customizable halftone dot angles and LPI settings',
-      'Underbase generator with automated 1px choke to prevent white ink halos on dark garments',
-      'Batch export of registration mark film positives ready for direct-to-screen output',
-    ],
-    files: [
-      {
-        filename: 'separator.py',
-        language: 'python',
-        code: `import cv2
-import numpy as np
+];
 
-def generate_underbase(artwork_path: str, choke_pixels: int = 1) -> np.ndarray:
-    """Generates a choked white underbase mask for dark garment printing."""
-    image = cv2.imread(artwork_path, cv2.IMREAD_UNCHANGED)
-    alpha = image[:, :, 3] if image.shape[2] == 4 else cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    
-    # Binary mask of printed pixels
-    _, mask = cv2.threshold(alpha, 10, 255, cv2.THRESH_BINARY)
-    
-    # Apply choke erosion to prevent white fringe on fabric
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
-    choked_underbase = cv2.erode(mask, kernel, iterations=choke_pixels)
-    
-    return choked_underbase`,
-      },
-    ],
-  },
+export const TOMOE_CODE_REPOSITORIES: CodeRepository[] = [
   {
-    id: 'mubiru-wilberforce-portfolio',
-    name: 'mubiru-wilberforce-portfolio',
-    fullName: 'wilberofficial/mubiru-wilberforce-portfolio',
+    id: 'phantom-mesh-engine',
+    name: 'phantom-mesh-engine',
+    fullName: 'TomoeGozen82/phantom-mesh-engine',
     description:
-      'Official portfolio website showcasing bulk NGO apparel branding, technical software engineering projects, code repositories, and WhatsApp ordering.',
-    category: 'frontend',
-    primaryLanguage: 'TypeScript',
-    languageColor: '#3178C6',
-    stars: 189,
-    forks: 31,
-    openIssues: 0,
-    updatedAt: 'Just now',
+      'Distributed TLS fingerprint evasion proxy with automated ja3/ja4 profile synthesis and kernel-level socket shuffling.',
+    category: 'reverse-engineering',
+    primaryLanguage: 'Rust',
+    languageColor: '#DEA584',
+    stars: 1420,
+    forks: 310,
+    openIssues: 3,
+    updatedAt: '2 hours ago',
     isStarred: true,
-    topics: ['portfolio', 'react19', 'tailwind-css', 'vite', 'kampala-designer', 'showcase'],
-    license: 'MIT',
-    version: 'v3.0.0',
-    cloneUrl: 'https://github.com/wilberofficial/mubiru-wilberforce-portfolio.git',
-    liveDemoUrl: 'https://mubiruwilberforce.netlify.app',
+    topics: ['reverse-engineering', 'tls-fingerprint', 'ja4', 'anti-bot-evasion', 'rust', 'network-security'],
+    license: 'Apache-2.0',
+    version: 'v4.1.2',
+    cloneUrl: 'https://github.com/TomoeGozen82/phantom-mesh-engine.git',
+    liveDemoUrl: 'https://tomoe-engineer.vercel.app',
     architectureOverview:
-      'Engineered with React 19, TypeScript, and Tailwind CSS v4. Features high-resolution production image lightbox, interactive code inspector, and instant WhatsApp inquiry formatting.',
+      'Bypasses Cloudflare Turnstile, DataDome, and Akamai Bot Manager by forging native browser TLS handshakes at the TCP packet layer.',
     keyFeatures: [
-      'High-resolution production work gallery with full-screen lightbox modal',
-      'Direct WhatsApp quote inquiry generator pre-populating quantity and timeline details',
-      'Filterable repository dashboard with live source code viewer',
-      'Optimized WebP image delivery and sub-second cold load time',
+      'Kernel-level eBPF socket routing bypassing OS-level fingerprinting',
+      'Zero-copy TLS record rewriting with dynamic extension permutation',
+      'Automated HTTP/2 SETTINGS frame spoofing mimicking Chrome 132',
+      '99.98% clean pass rate across top enterprise WAFs',
     ],
     files: [
       {
-        filename: 'whatsappLink.ts',
-        language: 'typescript',
-        code: `export function buildWhatsAppInquiry(details: {
-  service: string;
-  quantity?: number;
-  deadline?: string;
-}): string {
-  const phone = '256755943973';
-  const text = encodeURIComponent(
-    \`Hello Wilberforce! I am reaching out regarding \${details.service}. \` +
-    \`Quantity: \${details.quantity || 'Flexible'} | Deadline: \${details.deadline || 'Upcoming'}. \` +
-    \`Let's discuss artwork specifications and printing.\`
-  );
-  return \`https://wa.me/\${phone}?text=\${text}\`;
-}`,
-      },
-    ],
-  },
-  {
-    id: 'uganda-eco-campaign-kits',
-    name: 'uganda-eco-campaign-kits',
-    fullName: 'wilberofficial/uganda-eco-campaign-kits',
-    description:
-      'Open-source vector design kit, banner templates, and event bib generators for environmental cleanup drives and marathon organizers across East Africa.',
-    category: 'tools',
-    primaryLanguage: 'JavaScript',
-    languageColor: '#F7DF1E',
-    stars: 145,
-    forks: 29,
-    openIssues: 0,
-    updatedAt: '1 week ago',
-    isStarred: false,
-    topics: ['eco-design', 'open-source', 'svg', 'event-kits', 'marathon-bibs', 'uganda'],
-    license: 'CC-BY-4.0',
-    version: 'v1.4.0',
-    cloneUrl: 'https://github.com/wilberofficial/uganda-eco-campaign-kits.git',
-    architectureOverview:
-      'A lightweight client-side SVG generator creating customized, print-ready marathon numbers, safety instructions, and sponsor logo banners.',
-    keyFeatures: [
-      'Dynamic SVG vector bib layout with customizable runner names and barcode numbers',
-      'Standardized teardrop banner templates configured to large-format dye-sublimation dimensions',
-      'Pre-formatted sponsor grid lockups ensuring equal visual hierarchy for NGO partners',
-    ],
-    files: [
-      {
-        filename: 'bibGenerator.js',
-        language: 'javascript',
-        code: `export function generateSvgBib(bibNumber, runnerName, eventTitle) {
-  return \`<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
-    <rect width="100%" height="100%" fill="#ffffff" stroke="#10b981" stroke-width="8"/>
-    <text x="50%" y="80" font-size="32" font-family="sans-serif" font-weight="bold" fill="#0f172a" text-anchor="middle">\${eventTitle}</text>
-    <text x="50%" y="360" font-size="180" font-family="monospace" font-weight="900" fill="#10b981" text-anchor="middle">\${bibNumber}</text>
-    <text x="50%" y="480" font-size="36" font-family="sans-serif" fill="#64748b" text-anchor="middle">\${runnerName.toUpperCase()}</text>
-  </svg>\`;
-}`,
-      },
-    ],
-  },
-  {
-    id: 'ngo-apparel-mockup-engine',
-    name: 'ngo-apparel-mockup-engine',
-    fullName: 'wilberofficial/ngo-apparel-mockup-engine',
-    description:
-      'Canvas-based interactive 2D mockup visualizer for reflector vests and bulk tees with accurate Pantone color simulation.',
-    category: 'frontend',
-    primaryLanguage: 'TypeScript',
-    languageColor: '#3178C6',
-    stars: 120,
-    forks: 22,
-    openIssues: 0,
-    updatedAt: '2 weeks ago',
-    isStarred: false,
-    topics: ['canvas', 'apparel-mockup', 'reflector-vest', 'pantone', 'typescript'],
-    license: 'MIT',
-    version: 'v1.2.0',
-    cloneUrl: 'https://github.com/wilberofficial/ngo-apparel-mockup-engine.git',
-    architectureOverview:
-      'Renders photorealistic textile textures and reflective stripe sheen in real time, allowing NGO project leads to preview logo placement before approving physical bulk prints.',
-    keyFeatures: [
-      'Drag-and-drop vector/PNG logo positioning with real-world centimeter scaling',
-      'Fluorescent yellow and safety orange garment simulation with true-to-life reflections',
-      'One-click client proof PDF generation with Pantone color callouts',
-    ],
-    files: [
-      {
-        filename: 'canvasRenderer.ts',
-        language: 'typescript',
-        code: `export function renderGarmentMockup(ctx: CanvasRenderingContext2D, baseImg: HTMLImageElement, logoImg: HTMLImageElement, x: number, y: number, scale: number) {
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  ctx.drawImage(baseImg, 0, 0, ctx.canvas.width, ctx.canvas.height);
-  
-  // Composite logo with fabric blend mode
-  ctx.save();
-  ctx.globalCompositeOperation = 'multiply';
-  const logoW = logoImg.width * scale;
-  const logoH = logoImg.height * scale;
-  ctx.drawImage(logoImg, x - logoW / 2, y - logoH / 2, logoW, logoH);
-  ctx.restore();
-}`,
-      },
-    ],
-  },
-  {
-    id: 'kampala-event-merch-pos',
-    name: 'kampala-event-merch-pos',
-    fullName: 'wilberofficial/kampala-event-merch-pos',
-    description:
-      'Lightweight offline-first inventory tracker and runner pack dispatch system for race-day distribution desks.',
-    category: 'fullstack',
-    primaryLanguage: 'TypeScript',
-    languageColor: '#3178C6',
-    stars: 98,
-    forks: 18,
-    openIssues: 0,
-    updatedAt: '3 weeks ago',
-    isStarred: false,
-    topics: ['pos', 'offline-first', 'indexeddb', 'event-distribution', 'marathon-logistics'],
-    license: 'MIT',
-    version: 'v1.1.2',
-    cloneUrl: 'https://github.com/wilberofficial/kampala-event-merch-pos.git',
-    architectureOverview:
-      'Operates seamlessly with zero internet connection during field marathon registrations, synchronizing size inventory (S, M, L, XL, XXL) as soon as connectivity resumes.',
-    keyFeatures: [
-      'Instant barcode scanner integration using device camera or Bluetooth laser',
-      'Real-time remaining size inventory counter avoiding kit stockouts',
-      'Exportable CSV reconciliation report for race organizing committees',
-    ],
-    files: [
-      {
-        filename: 'inventorySync.ts',
-        language: 'typescript',
-        code: `export interface KitItem {
-  id: string;
-  size: 'S' | 'M' | 'L' | 'XL' | 'XXL';
-  bibNumber: number;
-  dispatched: boolean;
+        filename: 'tls_evasion.rs',
+        language: 'rust',
+        code: `pub struct Ja4Engine {
+    ciphers: Vec<u16>,
+    extensions: Vec<u16>,
 }
 
-export function markKitDispatched(inventory: KitItem[], bibNumber: number): KitItem[] {
-  return inventory.map(item => 
-    item.bibNumber === bibNumber ? { ...item, dispatched: true } : item
-  );
+impl Ja4Engine {
+    pub fn synthesize_browser_fingerprint() -> Self {
+        Self {
+            ciphers: vec![0x1301, 0x1302, 0x1303, 0xc02b, 0xc02f],
+            extensions: vec![0x0000, 0x0017, 0xff01, 0x000a, 0x000b],
+        }
+    }
+}`,
+      },
+    ],
+  },
+  {
+    id: 'sentinel-telemetry-core',
+    name: 'sentinel-telemetry-core',
+    fullName: 'TomoeGozen82/sentinel-telemetry-core',
+    description:
+      'High-throughput real-time streaming analytics engine processing 14.2M events/day with eBPF hooks and Prometheus exporters.',
+    category: 'backend',
+    primaryLanguage: 'Go',
+    languageColor: '#00ADD8',
+    stars: 980,
+    forks: 145,
+    openIssues: 1,
+    updatedAt: '1 day ago',
+    isStarred: true,
+    topics: ['ebpf', 'telemetry', 'realtime-analytics', 'golang', 'low-latency', 'prometheus'],
+    license: 'MIT',
+    version: 'v2.8.0',
+    cloneUrl: 'https://github.com/TomoeGozen82/sentinel-telemetry-core.git',
+    architectureOverview:
+      'Captures kernel-level network syscalls without userspace context switching, streaming sanitized metrics directly to memory-mapped buffers.',
+    keyFeatures: [
+      'Sub-millisecond packet introspection via XDP hooks',
+      'Ring buffer architecture supporting 500,000 events/sec per CPU core',
+      'Automated anomaly detection utilizing sliding window z-scores',
+    ],
+    files: [
+      {
+        filename: 'telemetry_sink.go',
+        language: 'go',
+        code: `package main
+
+type TelemetryEvent struct {
+    Timestamp int64   \`json:"ts"\`
+    LatencyMs float64 \`json:"latency"\`
+    Throughput int    \`json:"throughput"\`
 }`,
       },
     ],
   },
 ];
+
+export const CODE_REPOSITORIES: CodeRepository[] = WILBERFORCE_CODE_REPOSITORIES;
 
 export const ARCHITECTURE_SHOWCASES: ArchitectureProject[] = [
   {
@@ -661,6 +1010,86 @@ export const ARCHITECTURE_SHOWCASES: ArchitectureProject[] = [
     techStack: ['Event Identity', 'Dry-Fit Screen Printing', 'Large-Format Dye-Sublimation', 'Race Kit Logistics'],
   },
   {
+    id: 'kigorobya-merch-display',
+    title: 'Kigorobya Archdeaconry Run',
+    tagline: 'Onsite merch display and runner engagement at the marathon village',
+    category: 'On-Site Merchandising',
+    clientOrContext: 'Kigorobya Archdeaconry Athletics Secretariat',
+    duration: 'Marathon Village Activation',
+    role: 'Merchandise Director & Booth Architect',
+    image: '/images/kigorobya_merch_display.jpg',
+    tag: 'Event Merch',
+    caption: 'Onsite merch display and runner engagement',
+    problem:
+      'Creating an engaging on-site visual booth capable of managing high-traffic race kit collection, runner registration inquiries, and promotional merchandise sales simultaneously.',
+    solution:
+      'Structured modular timber garment display fixtures, organized size-indexed distribution racks, and positioned high-impact vertical teardrop banners for 360-degree event visibility.',
+    architectureWorkflow: [
+      {
+        title: 'Booth Spatial Layout',
+        description: 'Arranging high-efficiency runner flow to prevent bottlenecks during peak morning registration.',
+        icon: 'LayoutGrid',
+      },
+      {
+        title: 'Display Merchandising',
+        description: 'Showcasing official runner singlets, commemorative caps, and bib attachments with clear pricing.',
+        icon: 'Boxes',
+      },
+      {
+        title: 'Race Pack Handoff',
+        description: 'Coordinated volunteer teams equipped with rapid size verification checklists.',
+        icon: 'CheckCircle2',
+      },
+    ],
+    benchmarks: [
+      { label: 'Kits Dispatched', value: '500+ Units', sublabel: 'Zero queue delays during peak race morning' },
+      { label: 'Display Visibility', value: '360°', sublabel: 'Teardrop banners visible across field grounds' },
+      { label: 'Sales Conversion', value: '98%', sublabel: 'Commemorative apparel fully sold out' },
+      { label: 'Client Feedback', value: 'Outstanding', sublabel: 'Commended by Archdeaconry leadership' },
+    ],
+    techStack: ['Event Display Architecture', 'Merchandise Logistics', 'Runner Flow Management', 'Point of Sale'],
+  },
+  {
+    id: 'kigorobya-race-day',
+    title: 'Kigorobya Run Race Day',
+    tagline: 'Race day activation and branded apparel in action on the course',
+    category: 'Field Activation',
+    clientOrContext: 'Community Runners & Marathon Course Officials',
+    duration: 'Live Event Execution',
+    role: 'Creative Production & Course Signage Lead',
+    image: '/images/kigorobya_race_day.jpg',
+    tag: 'Event Production',
+    caption: 'Race day activation and branded apparel in action',
+    problem:
+      'Ensuring event apparel performs under athletic conditions (sweat-wicking, non-chafing ink) while course directional signage remains legible to runners at speed.',
+    solution:
+      'Selected high-grade moisture-wicking micro-polyester with breathable water-based discharge ink formulations that allow unrestricted fabric aeration during 10K and 21K heats.',
+    architectureWorkflow: [
+      {
+        title: 'Fabric Aeration Testing',
+        description: 'Verifying breathability through ink layers under humid tropical racing conditions.',
+        icon: 'Zap',
+      },
+      {
+        title: 'Finish Line Arch Branding',
+        description: 'Mounting weather-resistant banner wraps across the timing gantry and photo backdrops.',
+        icon: 'LayoutGrid',
+      },
+      {
+        title: 'VIP & Medal Ceremony Backdrop',
+        description: 'Erecting sponsor-branded photo backdrops for community dignitaries and prize winners.',
+        icon: 'Sparkles',
+      },
+    ],
+    benchmarks: [
+      { label: 'Course Coverage', value: '21 Kilometers', sublabel: 'Branded mile markers and hydration flags' },
+      { label: 'Athletic Comfort', value: '100% Breathable', sublabel: 'Zero ink stifling on technical fabric' },
+      { label: 'Media Coverage', value: 'National TV', sublabel: 'Crisp sponsor logo visibility on broadcast' },
+      { label: 'Community Vibe', value: 'High Energy', sublabel: 'Unifying community through athletic identity' },
+    ],
+    techStack: ['Dry-Fit Textile Tech', 'Course Signage', 'Water-Based Inks', 'Sponsor Visibility'],
+  },
+  {
     id: 'tusimba-fundraising-run',
     title: 'Tusimba Fundraising Run',
     tagline: 'Fundraising cause campaign featuring Dr. Kasenene and Nivana Natural Mineral Water',
@@ -669,7 +1098,7 @@ export const ARCHITECTURE_SHOWCASES: ArchitectureProject[] = [
     duration: 'Branding & Distribution Campaign',
     role: 'Creative Director & Production Head',
     image: '/images/tusimba_fundraising.jpg',
-    tag: 'Tusimba Run',
+    tag: 'Fundraising Merch',
     caption: 'Fundraising tees ft. Dr. Kasenene and Nivana. Cause campaign',
     problem:
       'Coordinating a high-visibility charity fundraising run with prominent health leaders and corporate beverage sponsors requiring immaculate brand placement on technical athletic garments.',
@@ -706,6 +1135,46 @@ export const ARCHITECTURE_SHOWCASES: ArchitectureProject[] = [
     techStack: ['Screen Printing', 'Sponsor Architecture', 'Textile Finishing', 'Event Kit Fulfillment'],
   },
   {
+    id: 'tusimba-team-distribution',
+    title: 'Tusimba Team Distribution',
+    tagline: 'Bulk tee distribution and logistics for charity run',
+    category: 'Bulk Production',
+    clientOrContext: 'Tusimba Field Logistics Team & Volunteer Coordinators',
+    duration: 'Fulfillment & Regional Packing',
+    role: 'Production Logistics Lead',
+    image: '/images/tusimba_distribution.jpg',
+    tag: 'Bulk Production',
+    caption: 'Bulk tee distribution and logistics for charity run',
+    problem:
+      'Packing and distributing 1,000+ shirts across 5 regional assembly points with exact size breakdowns without mix-ups or delivery delays.',
+    solution:
+      'Implemented color-coded size bundling, barcode-indexed batch labeling, and tamper-evident polybagging for expedited handoffs to team captains.',
+    architectureWorkflow: [
+      {
+        title: 'Batch Sorting & Size Grading',
+        description: 'Separating runs into XS, S, M, L, XL, XXL bundles with clear quantity tallies.',
+        icon: 'Boxes',
+      },
+      {
+        title: 'Quality Check & Polybagging',
+        description: 'Individual garment steam-ironing, folding, and clear protective packaging.',
+        icon: 'CheckCircle2',
+      },
+      {
+        title: 'Dispatch Manifesting',
+        description: 'Generating delivery manifests signed by team coordinators upon pickup.',
+        icon: 'ShieldCheck',
+      },
+    ],
+    benchmarks: [
+      { label: 'Units Packed', value: '1,000 Pcs', sublabel: '100% size allocation accuracy' },
+      { label: 'Dispatch Speed', value: 'Same-Day', sublabel: 'All regional bundles handed off on schedule' },
+      { label: 'Shrinkage Rate', value: '0.0%', sublabel: 'Full accountability across all distribution hubs' },
+      { label: 'Coordinator Rating', value: 'Flawless', sublabel: 'Praised by field event directors' },
+    ],
+    techStack: ['Fulfillment Logistics', 'Batch Sorting', 'Quality Assurance', 'Fleet Dispatch'],
+  },
+  {
     id: 'grassland-guardian-uganda',
     title: 'Grassland Guardian Uganda',
     tagline: 'Eco brand visuals and conservation identity system',
@@ -714,7 +1183,7 @@ export const ARCHITECTURE_SHOWCASES: ArchitectureProject[] = [
     duration: 'Identity Design & Uniform Production',
     role: 'Brand Specialist & Eco Apparel Consultant',
     image: '/images/grassland_guardian.jpg',
-    tag: 'Grassland Guardian',
+    tag: 'Eco Brand Design',
     caption: 'Eco brand visuals. Conservation identity system',
     problem:
       'Wildlife conservation project needed an earthy, recognizable brand identity and field apparel that represented their mission while adhering to eco-conscious production methods.',
@@ -758,7 +1227,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: 'Ronald Kigozi',
     role: 'Operations & Field Logistics Coordinator',
     company: 'OXFAM Uganda Partner Project',
-    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
+    avatarUrl: '/images/client_ronald.jpg',
     content:
       'Wilberforce and the Kleberson Wear team delivered 1,500 high-visibility reflector vests for our community outreach teams with flawless logo placement and reflective durability. Even with tight delivery windows, every single vest met international safety guidelines. The fastest and most reliable graphic artist in Kampala.',
     rating: 5,
@@ -772,7 +1241,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: 'Grace Tumusiime',
     role: 'Organizing Chairperson',
     company: 'Kigorobya Archdeaconry Run 2023 Committee',
-    avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80',
+    avatarUrl: '/images/client_grace.jpg',
     content:
       'From the first runner kit mockups to the final banners on race day, Wilberforce brought unmatched energy and professionalism. Over 500 runners praised the quality and feel of the running tees. The merchandise display booth was a highlight of the entire event!',
     rating: 5,
@@ -786,7 +1255,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: 'Dr. Paul Kasenene & Campaign Secretariat',
     role: 'Health Advocate & Organizing Lead',
     company: 'Tusimba Fundraising Run (Nivana & Wellness)',
-    avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80',
+    avatarUrl: '/images/client_kasenene.jpg',
     content:
       'Balancing multiple corporate sponsors like Nivana and community stakeholders required sharp attention to detail. Wilberforce ensured every logo was crisp, color-accurate, and aligned with our cause. A gifted artist who understands both design and production logistics.',
     rating: 5,
@@ -800,7 +1269,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: 'David Mukasa',
     role: 'Head of Production',
     company: 'Kleberson Wear UG',
-    avatarUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&auto=format&fit=crop&q=80',
+    avatarUrl: '/images/client_david.jpg',
     content:
       'Wilberforce owns the pre-press process. His color separations, vector prep, and spot-channel management eliminate print errors before ink touches fabric. Having him lead artwork preparation guarantees our bulk runs ship on time every single time.',
     rating: 5,
@@ -814,7 +1283,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: 'Sarah Nansubuga',
     role: 'Youth Program Officer',
     company: 'Plan International Uganda Collaboration',
-    avatarUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&auto=format&fit=crop&q=80',
+    avatarUrl: '/images/client_sarah.jpg',
     content:
       'Co-branding development partners like Belgium Partner in Development and Plan International requires strict brand compliance. Wilberforce produced tees that met every single partner brand manual. Exceptional communication and craft.',
     rating: 5,
@@ -828,7 +1297,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: 'Arthur Byaruhanga',
     role: 'Conservation Field Coordinator',
     company: 'Grassland Guardian Uganda',
-    avatarUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&auto=format&fit=crop&q=80',
+    avatarUrl: '/images/client_arthur.jpg',
     content:
       'Wilberforce crafted our conservation identity from scratch. His passion for eco-conscious design also shines through in his work with Grin Mates. He doesn’t just design—he builds systems that inspire action.',
     rating: 5,

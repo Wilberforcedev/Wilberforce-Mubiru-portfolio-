@@ -13,6 +13,10 @@ import {
   Zap,
   Globe,
   Download,
+  Linkedin,
+  Instagram,
+  Github,
+  MessageCircle,
 } from 'lucide-react';
 import { UserProfile } from '../types';
 
@@ -178,6 +182,67 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               >
                 <span>Get In Touch</span>
               </button>
+            </div>
+
+            {/* Verified Social Networks & Direct Reach Bar */}
+            <div className="pt-2 border-t border-slate-800/80 flex flex-wrap items-center gap-2 text-xs font-mono">
+              <span className="text-slate-500 mr-1">CONNECT:</span>
+
+              {profile.linkedinUrl && (
+                <a
+                  id="hero-linkedin-pill"
+                  href={profile.linkedinUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-blue-400 border border-slate-800 hover:border-blue-500/50 transition-all shadow-sm"
+                  title="Connect on LinkedIn"
+                >
+                  <Linkedin className="w-3.5 h-3.5 text-blue-400" />
+                  <span>LinkedIn</span>
+                </a>
+              )}
+
+              {profile.instagramUrl && (
+                <a
+                  id="hero-instagram-pill"
+                  href={profile.instagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-pink-400 border border-slate-800 hover:border-pink-500/50 transition-all shadow-sm"
+                  title="Follow on Instagram (@willinho23)"
+                >
+                  <Instagram className="w-3.5 h-3.5 text-pink-400" />
+                  <span>Instagram</span>
+                </a>
+              )}
+
+              {profile.githubUrl && (
+                <a
+                  id="hero-github-pill"
+                  href={profile.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-purple-300 border border-slate-800 hover:border-purple-500/50 transition-all shadow-sm"
+                  title={`GitHub: @${profile.handle}`}
+                >
+                  <Github className="w-3.5 h-3.5 text-purple-400" />
+                  <span>GitHub</span>
+                </a>
+              )}
+
+              {profile.whatsAppUrl && (
+                <a
+                  id="hero-whatsapp-pill"
+                  href={profile.whatsAppUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-950/40 hover:bg-emerald-950/70 text-emerald-300 hover:text-emerald-200 border border-emerald-800/60 hover:border-emerald-500/60 transition-all shadow-sm"
+                  title="Chat on WhatsApp (+256 755943973)"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>WhatsApp (+256)</span>
+                </a>
+              )}
             </div>
           </div>
 
