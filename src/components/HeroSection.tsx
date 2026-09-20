@@ -17,6 +17,7 @@ import {
   Instagram,
   Github,
   MessageCircle,
+  Award,
 } from 'lucide-react';
 import { UserProfile } from '../types';
 
@@ -57,7 +58,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="absolute inset-0 grid-bg-pattern opacity-40 pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Availability Badge */}
+        {/* Availability Badge & Global Ambassador Honors */}
         <div className="flex flex-wrap items-center gap-3 mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-mono shadow-sm shadow-emerald-950/50">
             <span className="relative flex h-2 w-2">
@@ -66,6 +67,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </span>
             <span>{profile.statusText}</span>
           </div>
+
+          {profile.gyaRole && (
+            <a
+              href="#experience"
+              id="hero-gya-badge"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-950/50 hover:bg-amber-900/60 border border-amber-500/40 text-amber-300 hover:text-amber-200 text-xs font-mono shadow-sm transition-all group"
+              title="Global Youth Ambassador (GYA) Theirworld UK 2026 - 2028"
+            >
+              <Award className="w-3.5 h-3.5 text-amber-400 shrink-0 group-hover:scale-110 transition-transform" />
+              <span className="font-semibold">{profile.gyaRole}</span>
+            </a>
+          )}
 
           <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-slate-400 text-xs font-mono">
             <Globe className="w-3 h-3 text-cyan-400" />
@@ -81,7 +94,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 mb-2 tracking-wider uppercase">
                 <span>
                   {profile.handle === 'wilberofficial'
-                    ? '[ Graphic Artist, Web & Brand Specialist ]'
+                    ? '[ Graphic Artist • Web Dev • GYA Theirworld UK 2026–2028 ]'
                     : '[ Systems, AI & Security ]'}
                 </span>
                 <span className="text-slate-600">—</span>

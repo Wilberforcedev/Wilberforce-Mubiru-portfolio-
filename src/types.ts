@@ -100,7 +100,7 @@ export interface ExperienceItem {
   company: string;
   period: string;
   location: string;
-  type: 'Full-time' | 'Contract' | 'Independent Consultant' | 'Founder';
+  type: 'Full-time' | 'Contract' | 'Independent Consultant' | 'Founder' | 'Ambassador' | 'Global Fellowship';
   summary: string;
   achievements: string[];
   technologies: string[];
@@ -125,6 +125,7 @@ export interface UserProfile {
   instagramHandle?: string;
   company?: string;
   founderOf?: string;
+  gyaRole?: string;
   status: 'available' | 'busy' | 'selective';
   statusText: string;
   githubUrl: string;

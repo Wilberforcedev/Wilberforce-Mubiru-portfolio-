@@ -17,12 +17,12 @@ export const WILBERFORCE_PROFILE: UserProfile = {
   name: 'Wilberforce Mubiru',
   handle: 'wilberofficial',
   avatar: '/images/wilberforce_portrait.webp',
-  primaryTitle: 'Graphic Artist',
-  secondaryTitle: 'Web Developer & Brand Specialist',
+  primaryTitle: 'Graphic Artist & Web Developer',
+  secondaryTitle: 'GYA Theirworld UK & Brand Specialist',
   shortBio:
-    'Graphic Artist and Web Developer based in Kampala, Uganda. Handling bulk apparel branding for NGOs (OXFAM, UKaid, Plan International, Belgium Partner in Development) and major runs (Kigorobya Archdeaconry Run, Tusimba Fundraising Run). Founder of Grin Mates.',
+    'Graphic Artist, Web Developer, and Global Youth Ambassador (GYA) at Theirworld UK (2026–2028) based in Kampala, Uganda. Handling bulk apparel branding for NGOs (OXFAM, UKaid, Plan International, Belgium Partner in Development) and major runs. Founder of Grin Mates.',
   fullBio:
-    'I am Wilberforce Mubiru, a Graphic Artist and Web Developer based in Kampala. I work at Kleberson Wear UG as Graphic Artist handling bulk apparel branding for international NGOs like OXFAM, UKaid, Plan International, and Belgium Partner in Development, as well as major events like the Kigorobya Archdeaconry Run and Tusimba Fundraising Run. I am also the Founder of Grin Mates, an eco rewards platform that rewards people for sustainable actions through Green Points. From pre-press screen separations and DTF to responsive web development, I own the workflow from concept to final delivery.',
+    'I am Wilberforce Mubiru, a Graphic Artist, Web Developer, and Global Youth Ambassador (GYA) at Theirworld UK (2026–2028). I work at Kleberson Wear UG handling bulk apparel branding for international NGOs like OXFAM, UKaid, Plan International, and Belgium Partner in Development, as well as major events like the Kigorobya Archdeaconry Run and Tusimba Fundraising Run. Appointed to Theirworld UK’s Global Youth Ambassador network (2026–2028), I champion universal education access and youth empowerment through creative visual communications and digital tech. I am also the Founder of Grin Mates, an eco rewards platform rewarding sustainable community actions through Green Points.',
   location: 'Kampala, Uganda',
   timezone: 'UTC+3 (East Africa Time)',
   email: 'wilberofficial2001@gmail.com',
@@ -34,8 +34,9 @@ export const WILBERFORCE_PROFILE: UserProfile = {
   instagramHandle: 'willinho23',
   company: 'Kleberson Wear UG & Rogue Ventures',
   founderOf: 'Grin Mates (Eco Rewards Platform)',
+  gyaRole: 'Global Youth Ambassador (GYA) • Theirworld UK (2026–2028)',
   status: 'available',
-  statusText: 'Available for bulk NGO & event branding • Kampala, Uganda',
+  statusText: 'GYA Theirworld UK (2026–2028) • Available for bulk NGO & event branding',
   githubUrl: 'https://github.com/Wilberforcedev',
   vercelUrl: 'https://mubiruwilberforce.netlify.app',
   twitterUrl: 'https://twitter.com/wilberofficial',
@@ -1309,6 +1310,23 @@ export const TESTIMONIALS: Testimonial[] = [
 ];
 
 export const EXPERIENCE_TIMELINE: ExperienceItem[] = [
+  {
+    id: 'exp-gya-theirworld',
+    role: 'Global Youth Ambassador (GYA)',
+    company: 'Theirworld UK',
+    period: '2026 — 2028',
+    location: 'London, UK / Global (Uganda)',
+    type: 'Ambassador',
+    summary:
+      'Appointed as a Global Youth Ambassador for Theirworld UK (2026–2028), joining a worldwide cohort of dedicated youth advocates campaigning to end the global education crisis, unlock potential for the next generation, and support early years education.',
+    achievements: [
+      'Amplifying Ugandan and East African youth voices across high-level international education summits and global campaign platforms.',
+      'Deploying visual arts, digital storytelling, and creative technology to advocate for inclusive, equitable quality education (UN SDG 4).',
+      'Collaborating with global youth champions and Theirworld campaign leadership to mobilize community-driven actions and education investments.',
+      'Bridging grassroots education initiatives in Uganda with international policy dialogues, youth consultations, and digital advocacy campaigns.',
+    ],
+    technologies: ['Global Advocacy', 'Youth Leadership', 'Education Campaigns', 'Theirworld UK', 'Policy & Impact', 'Digital Storytelling', 'UN SDG 4'],
+  },
   {
     id: 'exp-1',
     role: 'Graphic Artist & Production Specialist',
