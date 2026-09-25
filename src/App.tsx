@@ -19,6 +19,7 @@ import { ProfileCustomizerModal } from './components/ProfileCustomizerModal';
 import { CommandPaletteModal } from './components/CommandPaletteModal';
 import { DynamicBackgroundCanvas } from './components/DynamicBackgroundCanvas';
 import { LiveTelemetryHud } from './components/LiveTelemetryHud';
+import { GraphicsPortfolioSection } from './components/GraphicsPortfolioSection';
 
 import {
   TOMOE_PROFILE,
@@ -130,16 +131,19 @@ export default function App() {
         {/* 4. Flagship Architecture Case Studies */}
         <ProjectShowcase projects={ARCHITECTURE_SHOWCASES} />
 
-        {/* 5. Dynamic Interactive Pre-Press Studio & Separations Simulator */}
+        {/* 5. Graphics & Print Portfolio */}
+        <GraphicsPortfolioSection />
+
+        {/* 6. Dynamic Interactive Pre-Press Studio & Separations Simulator */}
         <InteractivePrepressStudio />
 
-        {/* 6. Verified Client & Peer Testimonials */}
+        {/* 7. Verified Client & Peer Testimonials */}
         <TestimonialsSection initialTestimonials={TESTIMONIALS} />
 
-        {/* 7. Professional Track Record & Milestones */}
+        {/* 8. Professional Track Record & Milestones */}
         <ExperienceSection experience={EXPERIENCE_TIMELINE} />
 
-        {/* 8. Direct Collaboration & Contact Hub */}
+        {/* 9. Direct Collaboration & Contact Hub */}
         <ContactSection profile={profile} />
       </main>
 
