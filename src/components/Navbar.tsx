@@ -99,9 +99,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             }}
             className="flex items-center gap-2.5 group cursor-pointer"
           >
-            <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:border-emerald-400/70 group-hover:bg-emerald-500/20 transition-all shadow-sm shadow-emerald-950">
-              <Terminal className="w-5 h-5" />
-            </div>
+            <img
+              src={currentProfile.avatar}
+              alt=""
+              width={36}
+              height={36}
+              decoding="async"
+              className="w-9 h-9 rounded-lg object-cover border border-emerald-500/40 shadow-sm shadow-emerald-950 group-hover:border-emerald-400/70 transition-all"
+            />
             <div className="flex flex-col">
               <span className="font-mono text-sm font-semibold text-slate-200 tracking-tight flex items-center gap-1">
                 <span className="text-emerald-400">{currentProfile.handle}</span>
